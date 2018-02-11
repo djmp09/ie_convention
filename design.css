@@ -1,0 +1,86 @@
+body:not(.studhead) {
+    background-color: green;
+    color: white;
+    display: table;
+    margin: auto;
+    margin-top:1%;
+}
+
+.navbar-custom {
+	background-color:black;
+	background-image: none;
+	background-repeat: no-repeat;
+	color:white;
+	width: 100%;
+	float: left;
+	margin: 0 0 1em 0;
+	padding: 0;
+}
+
+td, th, tr, table {
+	border: 2px solid white;
+	text-align: center;
+	padding: 10px;
+	background-color: #000000;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 15px;
+}
+
+input[type=text], input[type=password] {
+	color:black;
+	margin-left: -10px;
+	margin-right: -10px;
+	padding: 5px;
+	width: 100%;
+	border: 2px solid white;
+}
+
+input[type=password]:hover, input[type=text]:hover {
+	border-color: red;
+}
+
+input[type=text]:focus, input[type=password]:focus, select:focus {
+	background-color:#FAF4A1;
+}
+
+input[type=submit], input[type=reset], input[type=button] {
+	text-decoration:none;
+	background-color: #000000;
+	border:none;
+	padding:10px;
+	width:100%;
+	color: white;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 15px;
+}
+
+input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover, select:hover {
+	cursor: pointer;
+	background-color: #FFFFFF;
+	color:black;
+}
+
+input[type=radio]:hover {
+	width:20px;
+	height:20px;
+	background-color:#FAF4A1;
+	cursor: pointer;
+}
+
+select {
+	text-decoration:none;
+	background-color: #FFFFFF;
+	border:none;
+	width:100%;
+	color: black;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 15px;
+}
+
+#hid {
+	display:none;
+}
+
+input[type="submit"]:disabled {
+    background: #808080;
+}
