@@ -9,6 +9,12 @@
 		$stuno = $_POST['stuno'];
 		$secyr = $_POST['secyr'];
 		$mode = $_POST['mode'];
+		$cost = 0.00;
+		if($mode == "half"){
+			$cost = 175;
+		} else {
+			$cost = 0;
+		}
 		$stunum = mysqli_query($con, "SELECT COUNT(*) AS total FROM participants");
 		$data = $stunum->fetch_assoc();
 		if($data['total'] == 0){
@@ -23,11 +29,14 @@
 
 		$sql = "INSERT INTO participants (event_id, first_name, middle_name, last_name, contact_number, gender, student_number, section, mode_of_payment) VALUES ('$final', '$fname', '$mname', '$lname', '$mobno', '$gen', '$stuno', '$secyr', '$mode')";
 		if(mysqli_query($con, $sql)){
-			echo "
-				<script>
-					alert('Another one joined the FORCE!');
-				</script>
-			";
+			$sql = "INSERT INTO payment (event_id, date_of_payment, cost) VALUES ('$final', '".date('Y-m-d H:i:s')."', '$cost')";
+			if(mysqli_query($con, $sql)){
+				echo "
+					<script>
+						alert('Another one joined the FORCE!');
+					</script>
+				";
+			}
 		} else {
 			echo mysqli_error($con);
 		}

@@ -2,14 +2,25 @@
 	include("connect.php");
 	if(isset($_POST['pay'])){
 		$event_id = $_POST['event_id'];
-		$sql = "UPDATE payment SET cost = '350' WHERE event_id = '$event_id'";
+		$mode = $_POST['mode'];
+		$cost = 0;
+		if($mode == "half"){
+			$cost = 175;
+		} else {
+			$cost = 350;
+		}
+		$sql = "UPDATE payment SET cost = '$cost' WHERE event_id = '$event_id'";
 		$update = mysqli_query($con, $sql);
 		if($update){
-			echo "
-				<script>
-					alert('Another one has paid to join the FORCE!');
-				</script>
-			";
+			$sql = "UPDATE participants SET mode_of_payment = 'full' WHERE event_id = '$event_id'";
+			$$update = mysqli_query($con, $sql);
+			if($update){
+				echo "
+					<script>
+						alert('Another one has paid to join the FORCE!');
+					</script>
+				";
+			}
 		} else {
 			echo "ERROR: ". mysqli_error($con);
 		}
@@ -86,6 +97,7 @@
 
 					<td>
 						<input type='hidden' name='event_id' value='".$row['event_id']."'>
+						<input type='hidden' name='mode' value='".$row['mode_of_payment']."'>
 						<input type='submit' name='pay' value='Pay'>
 					</td>
 					</tr>
