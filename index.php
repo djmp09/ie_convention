@@ -1,5 +1,4 @@
 <?php
-
 	include("connect.php");
 
 ?>
@@ -7,8 +6,8 @@
 <html>
 <head>
 	<title>IE CONVENTION</title>
-	<link href="css/bootstrap.css" rel="stylesheet" />
-	<link href="css/bootstrap-theme.css" rel="stylesheet" />
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.css" rel="stylesheet">
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="design.css">
 

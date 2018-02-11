@@ -21,6 +21,8 @@
 		}
 	} else if(isset($_POST['edit'])){
 		header("Location: add.php?event_id=".$_POST['event_id']);
+	} else if(isset($_POST['link'])){
+		header("Location: id.php?event_id=".$_POST['event_id']."&fn=".$_POST['fn']."&ln=".$_POST['ln']."");
 	}
 ?>
 <!DOCTYPE html>
@@ -95,6 +97,9 @@
 					<td>
 						<input type='hidden' name='id' value='".$row['id']."'>
 						<input type='hidden' name='event_id' value='".$row['event_id']."'>
+						<input type='hidden' name='fn' value='".$row['first_name']."'>
+						<input type='hidden' name='ln' value='".$row['last_name']."'>
+						<input type='submit' name='link' value='Link'>
 						<input type='submit' name='delete' value='Delete'>
 						<input type='submit' name='edit' value='Edit'>
 					</td>

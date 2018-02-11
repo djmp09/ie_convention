@@ -1,0 +1,48 @@
+div{
+	position: absolute;
+	left: 0px;
+	top:0px;
+	width:287.04px; 
+	height:449.28px;
+
+}
+
+img{
+	position: absolute;
+	left: 0px;
+	top:0px;
+	width:287.04px; 
+	height:449.28px;
+}
+
+p{
+	color: #ffff64;
+	font-weight: bold;
+	text-align: center;
+	width: 100%;
+	font-family: bebas;
+}
+#fn{
+
+    position: relative;
+    top: 250px;
+    font-size: 20px;
+    
+
+}
+
+#ln{
+
+    position: relative;
+    top: 240px;
+    font-size: 20px;
+	
+}
+
+#number{
+    
+	color: white;
+    position: relative;
+    top: 255px;
+    font-size: 13px;
+}
