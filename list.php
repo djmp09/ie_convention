@@ -19,6 +19,8 @@
 			";
 			
 		}
+	} else if(isset($_POST['edit'])){
+		header("Location: add.php?event_id=".$_POST['event_id']);
 	}
 ?>
 <!DOCTYPE html>
@@ -92,7 +94,9 @@
 					<td>".$row['mode_of_payment']."</td>
 					<td>
 						<input type='hidden' name='id' value='".$row['id']."'>
+						<input type='hidden' name='event_id' value='".$row['event_id']."'>
 						<input type='submit' name='delete' value='Delete'>
+						<input type='submit' name='edit' value='Edit'>
 					</td>
 					</tr>
 					</form>

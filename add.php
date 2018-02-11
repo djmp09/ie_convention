@@ -1,6 +1,6 @@
 <?php
 	include("connect.php");
-	if(isset($_POST["submit"])){
+	if(isset($_POST["submit"]) && !isset($_GET['event_id'])){
 		$fname = $_POST['fname'];
 		$mname = $_POST['mname'];
 		$lname = $_POST['lname'];
@@ -52,31 +52,56 @@
 	<link rel="stylesheet" type="text/css" href="design.css">
 </head>
 <body>
-	<?php include("navbar.html"); ?>
+	<?php include("navbar.html");
+		$fname = "";
+		$mname = "";
+		$lname = "";
+		$contact = "";
+		$gen = "";
+		$stuno = "";
+		$sec = "";
+		$mode = "";
+		if(isset($_GET['event_id'])){
+			$event_id = $_GET['event_id'];
+			$select = mysqli_query($con, "SELECT * FROM participants WHERE event_id='$event_id'");
+			if(mysqli_num_rows($select) > 0){
+				while ($row = mysqli_fetch_assoc($select)){
+					$fname = $row['first_name'];
+					$mname = $row['middle_name'];
+					$lname = $row['last_name'];
+					$contact = $row['contact_number'];
+					$gen = $row['gender'];
+					$stuno = $row['student_number'];
+					$sec = $row['section'];
+					$mode = $row['mode_of_payment'];
+				}
+			}
+		}
+	?>
 	<table align="center">
-	<form action="add.php" method="POST">
-		<tr>
-			<td><input type="text" placeholder="First Name" name="fname" maxlength="20" pattern="[a-zA-z\s]+" title="Letters only" required="true"></td>
-			<td><input type="text" placeholder="Middle Name" name="mname" maxlength="20" pattern="[a-zA-z\s]+" title="Letters only" required="true"></td>
-			<td><input type="text" placeholder="Last Name" name="lname" maxlength="20" pattern="[a-zA-z\s]+" title="Letters only" required="true"></td>
-		</tr>
-		<tr>
-			<td><input type="text" name="mobno" maxlength="11" pattern="09[0-9]{9}" title="09xxxxxxxxx" placeholder="Contact Number" required="true"></td>
-			<td><input type="radio" name="gen" value="M" checked="checked"> Male</td>
-			<td><input type="radio" name="gen" value="F"> Female</td>
-		</tr>
-		<tr>
-			<td><input type="text" placeholder="Student Number" name="stuno" required="true"></td>
-			<td><input type="text" placeholder="Year and Section" name="secyr" required="true"></td>
-		</tr>
-		<tr>
-			<td><input type="radio" name="mode" checked="true" value="full">Full</td>
-			<td><input type="radio" name="mode" value="half">Half</td>
-		</tr>
-		<tr>
-			<td colspan="3"><input type="submit" name="submit"></td>
-		</tr>
-	</form>
+		<form action="add.php" method="POST">
+			<tr>
+				<td><input type="text" placeholder="First Name" name="fname" maxlength="20" pattern="[a-zA-z\s]+" title="Letters only" required="true" value=<?php echo'"'; if(isset($fname)){echo $fname;} echo '"';?>></td>
+				<td><input type="text" placeholder="Middle Name" name="mname" maxlength="20" pattern="[a-zA-z\s]+" title="Letters only" required="true" value=<?php echo'"'; if(isset($mname)){echo $mname;}echo '"';?>></td>
+				<td><input type="text" placeholder="Last Name" name="lname" maxlength="20" pattern="[a-zA-z\s]+" title="Letters only" required="true" value=<?php echo'"'; if(isset($lname)){echo $lname;}echo '"';?>></td>
+			</tr>
+			<tr>
+				<td><input type="text" name="mobno" maxlength="11" pattern="09[0-9]{9}" title="09xxxxxxxxx" placeholder="Contact Number" required="true" value=<?php echo'"'; if(isset($contact)){echo $contact;}echo '"';?>></td>
+				<td><input type="radio" name="gen" value="M" <?php if(isset($gen)){echo ($gen == "M")? "checked": "";} ?>> Male</td>
+				<td><input type="radio" name="gen" value="F"' <?php if(isset($gen)){echo ($gen == "F")? "checked": "";} ?>> Female</td>
+			</tr>
+			<tr>
+				<td><input type="text" placeholder="Student Number" name="stuno" required="true" value=<?php echo'"'; if(isset($stuno)){echo $stuno;}echo '"';?>></td>
+				<td><input type="text" placeholder="Year and Section" name="secyr" required="true" value=<?php echo'"'; if(isset($sec)){echo $sec;}echo '"';?>></td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="mode" checked="true" value="full" <?php if(isset($mode)){echo ($mode == "full")? "checked": "";} ?>>Full</td>
+				<td><input type="radio" name="mode" value="half" <?php if(isset($mode)){echo ($mode == "half")? "checked": "";} ?>>Half</td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="submit" name="submit"></td>
+			</tr>
+		</form>
 	</table>
 </body>
 </html>
