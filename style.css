@@ -44,11 +44,19 @@ p{
 	
 }
 
+#padawan{
+    
+	color: white;
+    position: relative;
+    top: 245px;
+    font-size: 16px;
+}
+
 #number{
     
 	color: white;
     position: relative;
-    top: 265px;
+    top: 228px;
     font-size: 12px;
 }
 
