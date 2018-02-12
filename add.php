@@ -9,12 +9,12 @@
 		$stuno = $_POST['stuno'];
 		$secyr = $_POST['secyr'];
 		$mode = $_POST['mode'];
-		$cost = 0.00;
-		if($mode == "half"){
-			$cost = 175;
-		} else {
-			$cost = 0;
-		}
+		// $cost = 0.00;
+		// if($mode == "half"){
+		// 	$cost = 175;
+		// } else {
+		// 	$cost = 0;
+		// }
 		$stunum = mysqli_query($con, "SELECT COUNT(*) AS total FROM participants");
 		$data = $stunum->fetch_assoc();
 		if($data['total'] == 0){
@@ -29,17 +29,36 @@
 
 		$sql = "INSERT INTO participants (event_id, first_name, middle_name, last_name, contact_number, gender, student_number, section, mode_of_payment) VALUES ('$final', '$fname', '$mname', '$lname', '$mobno', '$gen', '$stuno', '$secyr', '$mode')";
 		if(mysqli_query($con, $sql)){
-			$sql = "INSERT INTO payment (event_id, date_of_payment, cost) VALUES ('$final', '".date('Y-m-d H:i:s')."', '$cost')";
-			if(mysqli_query($con, $sql)){
-				echo "
-					<script>
-						alert('Another one joined the FORCE!');
-					</script>
-				";
-			}
+			echo "
+				<script>
+					alert('Another one joined the FORCE!');
+				</script>
+			";
 		} else {
 			echo mysqli_error($con);
 		}
+	} else if(isset($_POST["save"])){
+
+		$event_id = $_POST['event_id'];
+		$fname = $_POST['fname'];
+		$mname = $_POST['mname'];
+		$lname = $_POST['lname'];
+		$mobno = $_POST['mobno'];
+		$gen = $_POST['gen'];
+		$stuno = $_POST['stuno'];
+		$secyr = $_POST['secyr'];
+		$mode = $_POST['mode'];
+
+		$update = mysqli_query($con, "UPDATE participants SET first_name='$fname', last_name='$lname', middle_name='$mname', gender='$gen', contact_number='$mobno', student_number='$stuno', section='$secyr', mode_of_payment='$mode' WHERE event_id='$event_id'");
+		if($update){
+			echo "
+				<script>
+					alert('Another one updated with the FORCE!');
+				</script>
+			";
+		}
+
+
 	}
 ?>
 <!DOCTYPE html>
@@ -99,7 +118,17 @@
 				<td><input type="radio" name="mode" value="half" <?php if(isset($mode)){echo ($mode == "half")? "checked": "";} ?>>Half</td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="submit" name="submit"></td>
+				<td colspan="3">
+					<?php
+						if(isset($_GET['event_id'])){
+							echo '<input type="hidden" name="event_id" value="'.$_GET['event_id'].'">';
+							echo '<input type="submit" name="save" value="Save">';
+						} else{
+							echo '<input type="submit" name="submit" value="Submit">';	
+						}
+						
+					?>
+				</td>
 			</tr>
 		</form>
 	</table>
