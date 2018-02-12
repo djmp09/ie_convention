@@ -28,11 +28,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>IE Convention</title>
-	<link href="css/bootstrap.css" rel="stylesheet" />
-	<link href="css/bootstrap-theme.css" rel="stylesheet" />
-	<script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="design.css">
+	<?php include("navbar.html"); ?>
 	<style>
 		.header td:hover {
 			cursor:pointer;
@@ -40,24 +36,7 @@
 	</style>
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-custom" style="color:black;">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <a href="index.php" class="navbar-brand">ADMIN</a>
-	    </div>
-	    <ul class="nav navbar-nav">
-	      <li><a href="add.php">ADD</a></li>
-	      <li><a href="list.php">LIST</a></li>
-	      <li><a href="transaction.php">TRANSACTIONS</a></li>
-	    </ul>
-	    <form class="navbar-form navbar-left" action="list.php" method="GET">
-	      <div class="form-group">
-	        <input type="text" class="form-control" name="search" placeholder="Search">
-	      </div>
-	      	<button type="submit" class="btn btn-default">Search</button>
-	    </form>
-	  </div>
-	</nav>
+	
 	<table id="table" align="center">
 		<tr>
 			<th colspan="13">List of Participants</th>
