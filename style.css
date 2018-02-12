@@ -15,17 +15,22 @@ img{
 	height:449.28px;
 }
 
+@font-face {
+    font-family: Bebas;
+    src: url('fonts/BEBAS.ttf');
+}
+
 p{
 	color: #ffff64;
 	font-weight: bold;
 	text-align: center;
 	width: 100%;
-	font-family: bebas;
+	font-family: Bebas;
 }
 #fn{
 
     position: relative;
-    top: 250px;
+    top: 265px;
     font-size: 20px;
     
 
@@ -34,7 +39,7 @@ p{
 #ln{
 
     position: relative;
-    top: 240px;
+    top: 245px;
     font-size: 20px;
 	
 }
@@ -43,6 +48,25 @@ p{
     
 	color: white;
     position: relative;
-    top: 255px;
-    font-size: 13px;
+    top: 265px;
+    font-size: 12px;
+}
+
+#dayOne{
+	
+	color: #bfbfbf;
+	position: absolute;
+	top: 47px;
+	left: 17px;
+	font-size: 12px;
+}
+
+#dayTwo{
+	
+	color: #bfbfbf;
+ 	position: absolute;
+	top: 11.5px;
+	right: 15px;
+	font-size: 12px;
+
 }
