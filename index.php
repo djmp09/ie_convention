@@ -16,7 +16,6 @@
 	</style>
 </head>
 <body class="body">
-	
 	<img class="center" src="images/Logo.png" width="600px" height="600px">
 </body>
 </html>
