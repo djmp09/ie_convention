@@ -11,7 +11,7 @@
 <body>
 	<table id="table" align="center">
 		<tr>
-			<th colspan="13">List of Present Participants (<?php echo date("Y/m/d"); ?>)</th>
+			<th colspan="13">List of Absent Participants (<?php echo date("Y/m/d"); ?>)</th>
 		</tr>
 		<tr class="header">
 			<td onclick="sortTable(0);">Event Id</td>
@@ -20,45 +20,37 @@
 			<td onclick="sortTable(3);">Middle Name</td>
 			<td onclick="sortTable(4);">Last Name</td>
 			<td onclick="sortTable(5);">Year and Section</td>
-			<td onclick="sortTable(6);">Date</td>
-			<td onclick="sortTable(7);">Time</td>
 		</tr>
-			<?php
-				include("connect.php");
-				$curr_date = date("Y/m/d");
-				$curr_date = str_replace('/','-',$curr_date);
-				if(isset($_GET['search'])){
-					$search = $_GET['search'];
-					$select = mysqli_query($con, "SELECT * FROM participants WHERE first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR middle_name LIKE '%$search%' OR contact_number LIKE '%$search%' OR student_number LIKE '%$search%' OR gender LIKE '%$search%' OR section LIKE '%$search%'");
-				} else {
-					$select = mysqli_query($con, "SELECT attendance.event_id, participants.student_number, participants.first_name, participants.middle_name, participants.last_name, participants.section, attendance.date, attendance.time FROM attendance, participants WHERE attendance.event_id = participants.event_id AND attendance.date = '$curr_date'");
+	<?php
+		include("connect.php");
+		$curr_date = date("Y/m/d");
+		$curr_date = str_replace('/','-',$curr_date);
+		if(isset($_GET['search'])){
+			$search = $_GET['search'];
+			$select = mysqli_query($con, "SELECT * FROM participants WHERE first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR middle_name LIKE '%$search%' OR contact_number LIKE '%$search%' OR student_number LIKE '%$search%' OR gender LIKE '%$search%' OR section LIKE '%$search%'");
+		} else {
+			$select = mysqli_query($con, "SELECT participants.event_id, participants.student_number, participants.first_name, participants.middle_name, participants.last_name, participants.section FROM participants LEFT JOIN attendance ON attendance.event_id = participants.event_id WHERE attendance.event_id IS NULL");
+		}
+		if($select){
+			if(mysqli_num_rows($select) > 0){
+				while ($row = mysqli_fetch_assoc($select)){
+					echo "<form method='POST' action='list.php'>
+						<tr>
+						<td>".$row['event_id']."</td>
+						<td>".$row['student_number']."</td>
+						<td>".$row['first_name']."</td>
+						<td>".$row['middle_name']."</td>
+						<td>".$row['last_name']."</td>
+						<td>".$row['section']."</td>
+						</tr>
+						</form>
+						";
 				}
-				if($select){
-					if(mysqli_num_rows($select) > 0){
-						while ($row = mysqli_fetch_assoc($select)){
-							echo "<form method='POST' action='list.php'>
-								<tr>
-								<td>".$row['event_id']."</td>
-								<td>".$row['student_number']."</td>
-								<td>".$row['first_name']."</td>
-								<td>".$row['middle_name']."</td>
-								<td>".$row['last_name']."</td>
-								<td>".$row['section']."</td>
-								<td>".$row['date']."</td>
-								<td>".$row['time']."</td>
-								</tr>
-								</form>
-								";
-						}
-					} 
-				} else {
-					echo "<tr><td colspan='8'>EMPTY</td></tr>";
-				}
-			?>
-		<tr>
-			<td colspan="8"><input type="button" onclick="myFunction()" id="print" value="PRINT"></td>
-		</tr>
-	</table>
+			} 
+		} else {
+			echo "<tr><td colspan='8'>EMPTY</td></tr>";
+		}
+	?>
 <script>
 	function sortTable(n) {
 	  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -74,7 +66,7 @@
 	    rows = table.getElementsByTagName("TR");
 	    /* Loop through all table rows (except the
 	    first, which contains table headers): */
-	    for (i = 2; i < (rows.length - 2); i++) {
+	    for (i = 2; i < (rows.length - 1); i++) {
 	      // Start by saying there should be no switching:
 	      shouldSwitch = false;
 	      /* Get the two elements you want to compare,
@@ -114,13 +106,6 @@
 	    }
 	  }
 	}
-
-	function myFunction(){
-        var x = document.getElementById("print");
-        x.style.display = "none";
-        window.print();
-        window.location.reload(true);
-    }
 </script>
 </body>
 </html>

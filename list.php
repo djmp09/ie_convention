@@ -36,7 +36,6 @@
 	</style>
 </head>
 <body>
-	
 	<table id="table" align="center">
 		<tr>
 			<th colspan="13">List of Participants</th>
@@ -53,41 +52,45 @@
 			<td onclick="sortTable(8);">Mode of Payment</td>
 			<td>Action</td>
 		</tr>
-	<?php
-		if(isset($_GET['search'])){
-			$search = $_GET['search'];
-			$select = mysqli_query($con, "SELECT * FROM participants WHERE first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR middle_name LIKE '%$search%' OR contact_number LIKE '%$search%' OR student_number LIKE '%$search%' OR gender LIKE '%$search%' OR section LIKE '%$search%'");
-		} else {
-			$select = mysqli_query($con, "SELECT * FROM participants");
-		}
-		if(mysqli_num_rows($select) > 0){
-			while ($row = mysqli_fetch_assoc($select)){
-				echo "<form method='POST' action='list.php'>
-					<tr>
-					<td>".$row['event_id']."</td>
-					<td>".$row['student_number']."</td>
-					<td>".$row['first_name']."</td>
-					<td>".$row['middle_name']."</td>
-					<td>".$row['last_name']."</td>
-					<td>".$row['section']."</td>
-					<td>".$row['gender']."</td>
-					<td>".$row['contact_number']."</td>
-					<td>".$row['mode_of_payment']."</td>
-					<td>
-						<input type='hidden' name='id' value='".$row['id']."'>
-						<input type='hidden' name='event_id' value='".$row['event_id']."'>
-						<input type='hidden' name='fn' value='".$row['first_name']."'>
-						<input type='hidden' name='ln' value='".$row['last_name']."'>
-						<input type='submit' name='link' value='Link'>
-						<input type='submit' name='delete' value='Delete'>
-						<input type='submit' name='edit' value='Edit'>
-					</td>
-					</tr>
-					</form>
-					";
-			}
-		}
-	?>
+			<?php
+				if(isset($_GET['search'])){
+					$search = $_GET['search'];
+					$select = mysqli_query($con, "SELECT * FROM participants WHERE first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR middle_name LIKE '%$search%' OR contact_number LIKE '%$search%' OR student_number LIKE '%$search%' OR gender LIKE '%$search%' OR section LIKE '%$search%'");
+				} else {
+					$select = mysqli_query($con, "SELECT * FROM participants");
+				}
+				if(mysqli_num_rows($select) > 0){
+					while ($row = mysqli_fetch_assoc($select)){
+						echo "<form method='POST' action='list.php'>
+							<tr>
+							<td>".$row['event_id']."</td>
+							<td>".$row['student_number']."</td>
+							<td>".$row['first_name']."</td>
+							<td>".$row['middle_name']."</td>
+							<td>".$row['last_name']."</td>
+							<td>".$row['section']."</td>
+							<td>".$row['gender']."</td>
+							<td>".$row['contact_number']."</td>
+							<td>".$row['mode_of_payment']."</td>
+							<td>
+								<input type='hidden' name='id' value='".$row['id']."'>
+								<input type='hidden' name='event_id' value='".$row['event_id']."'>
+								<input type='hidden' name='fn' value='".$row['first_name']."'>
+								<input type='hidden' name='ln' value='".$row['last_name']."'>
+								<input type='submit' name='link' value='Link'>
+								<input type='submit' name='delete' value='Delete'>
+								<input type='submit' name='edit' value='Edit'>
+							</td>
+							</tr>
+							</form>
+							";
+					}
+				}
+			?>
+		<tr>
+			<td colspan="10"><input type="button" onclick="myFunction()" id="print" value="PRINT"></td>
+		</tr>
+	</table>
 <script>
 	function sortTable(n) {
 	  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -103,7 +106,7 @@
 	    rows = table.getElementsByTagName("TR");
 	    /* Loop through all table rows (except the
 	    first, which contains table headers): */
-	    for (i = 2; i < (rows.length - 1); i++) {
+	    for (i = 2; i < (rows.length - 2); i++) {
 	      // Start by saying there should be no switching:
 	      shouldSwitch = false;
 	      /* Get the two elements you want to compare,
@@ -143,6 +146,13 @@
 	    }
 	  }
 	}
+
+	function myFunction(){
+        var x = document.getElementById("print");
+        x.style.display = "none";
+        window.print();
+        window.location.reload(true);
+    }
 </script>
 </body>
 </html>
